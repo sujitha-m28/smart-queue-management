@@ -18,7 +18,6 @@ RUN git clone https://github.com/flutter/flutter.git \
 
 ENV PATH="/flutter/bin:/flutter/bin/cache/dart-sdk/bin:$PATH"
 
-RUN flutter doctor
 RUN flutter config --enable-web
 
 COPY pubspec.* ./
