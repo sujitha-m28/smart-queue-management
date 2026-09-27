@@ -11,7 +11,9 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOriginPatterns(
                         "http://localhost:*",
-                        "http://192.168.0.101:*"
-                )                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+                        "http://192.168.0.101:*",
+                        "http://192.168.0.105:*",
+                        "https://frontend-djly.onrender.com"
+                )             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
     }
 }
