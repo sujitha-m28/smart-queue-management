@@ -17,7 +17,7 @@ RUN git clone https://github.com/flutter/flutter.git \
     --depth 1 /flutter
 
 ENV PATH="/flutter/bin:/flutter/bin/cache/dart-sdk/bin:$PATH"
-
+ENV TAR_OPTIONS="--no-same-owner"
 RUN flutter config --enable-web
 
 COPY pubspec.* ./
