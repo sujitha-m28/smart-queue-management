@@ -150,8 +150,7 @@ class QRScreen extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: QrImageView(
-data: "http://192.168.0.105:3000/#/join",
-                              version: QrVersions.auto,
+data: "https://frontend-djly.onrender.com/#/join",                              version: QrVersions.auto,
                               size: 240,
                               backgroundColor: Colors.white,
                               eyeStyle: const QrEyeStyle(
