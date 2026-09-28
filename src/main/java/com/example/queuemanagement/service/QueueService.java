@@ -387,49 +387,15 @@ public class QueueService {
     }
     public double calculateAIPredictedWaitingTime(Long queueId) {
 
-        List<Queue> activeQueues =
-                queueRepository.findByStatusInOrderByCreatedAtAsc(
-                        List.of(
-                                QueueStatus.WAITING,
-                                QueueStatus.SERVING
-                        )
-                );
+        int position = getQueuePosition(queueId);
 
-        double totalWaitingTime = 0;
-
-        for (Queue queue : activeQueues) {
-
-            if (queue.getId().equals(queueId)) {
-                break;
-            }
-
-            if (queue.getStatus() == QueueStatus.SERVING) {
-
-                double predictedServiceTime =
-                        getPredictedServiceTimeForQueue(queue.getId());
-
-                long elapsedSeconds =
-                        java.time.Duration.between(
-                                queue.getServiceStartTime(),
-                                java.time.LocalDateTime.now()
-                        ).getSeconds();
-
-                double remainingTime =
-                        Math.max(
-                                0,
-                                predictedServiceTime - elapsedSeconds
-                        );
-
-                totalWaitingTime += remainingTime;
-
-            } else {
-
-                totalWaitingTime +=
-                        getPredictedServiceTimeForQueue(queue.getId());
-            }
+        if (position <= 1) {
+            return 0;
         }
 
-        return totalWaitingTime;
+        long averageServiceTime = calculateAverageServiceTime();
+
+        return (position - 1) * averageServiceTime;
     }
     public void checkPositionThree() {
 
