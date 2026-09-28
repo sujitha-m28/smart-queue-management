@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import com.example.queuemanagement.dto.PredictionResponseDTO;
 import org.springframework.http.MediaType;
+
 @Service
 public class AIService {
 
@@ -12,7 +13,7 @@ public class AIService {
     public AIService() {
         this.restClient = RestClient
                 .builder()
-                .baseUrl("http://localhost:5000")
+                .baseUrl("https://smart-trial-queue.onrender.com")
                 .build();
     }
 
@@ -25,12 +26,16 @@ public class AIService {
                 .uri("/predict")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("""
-    {
-        "queuePosition": %d,
-        "waitingTime": %d,
-        "hourOfDay": %d
-    }
-    """.formatted(queuePosition, waitingTime, hourOfDay))
+                    {
+                        "queuePosition": %d,
+                        "waitingTime": %d,
+                        "hourOfDay": %d
+                    }
+                    """.formatted(
+                        queuePosition,
+                        waitingTime,
+                        hourOfDay
+                ))
                 .retrieve()
                 .body(PredictionResponseDTO.class);
 
